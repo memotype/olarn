@@ -1,0 +1,5 @@
+(library
+  (name olarn)
+  (libraries tsdl fmts)
+  (flags (:standard -warn-error "-unused-value-declaration"
+                    -warn-error "-unused-var-strict")))
