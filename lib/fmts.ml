@@ -7,12 +7,10 @@
 
 open Tsdl
 
-module Fmts = struct
-
 let button_state_str = function
-| s when s = Sdl.pressed -> "pressed"
-| s when s = Sdl.released -> "released"
-| _ -> assert false
+  | s when s = Sdl.pressed -> "pressed"
+  | s when s = Sdl.released -> "released"
+  | _ -> assert false
 
 let pp = Format.fprintf
 let pp = Format.fprintf
@@ -20,15 +18,15 @@ let pp_int = Format.pp_print_int
 let pp_str = Format.pp_print_string
 let pp_ipair ppf (x, y) = pp ppf "(%d %d)" x y
 let pp_opt pp_v ppf v = match v with
-| None -> pp ppf "None" | Some v -> pp ppf "(Some %a)" pp_v v
+  | None -> pp ppf "None" | Some v -> pp ppf "(Some %a)" pp_v v
 
 let rec pp_list ?(pp_sep = Format.pp_print_cut) pp_v ppf = function
-| [] -> ()
-| v :: vs ->
+  | [] -> ()
+  | v :: vs ->
     pp_v ppf v; if vs <> [] then (pp_sep ppf (); pp_list ~pp_sep pp_v ppf vs)
 
 let pp_unknown pp_v ppf v = match v with
-| None -> pp ppf "unknown" | Some v -> pp_v ppf v
+  | None -> pp ppf "unknown" | Some v -> pp_v ppf v
 
 let pp_point ppf p =
   pp ppf "@[<1>(%d %d)>@]" (Sdl.Point.x p) (Sdl.Point.y p)
@@ -72,12 +70,12 @@ let pp_controller_device_event ppf e =
     Sdl.Event.(if get e typ = controller_device_added then "add" else
                if get e typ = controller_device_remapped then "remap" else
                if get e typ = controller_device_removed then "rem" else
-               assert false)
+                 assert false)
     Sdl.Event.(get e controller_device_which)
 
 let pp_dollar_gesture_event ppf e =
   pp ppf "@[<1>dollar_gesture_event touch_id:%Ld@ gesture_id:%Ld@ \
-               num_fingers:%d@ error:%g@ (%g,%g)@]"
+          num_fingers:%d@ error:%g@ (%g,%g)@]"
     Sdl.Event.(get e dollar_gesture_touch_id)
     Sdl.Event.(get e dollar_gesture_gesture_id)
     Sdl.Event.(get e dollar_gesture_num_fingers)
@@ -91,7 +89,7 @@ let pp_drop_event ppf e =
 
 let pp_touch_finger_event ppf e =
   pp ppf "@[<1>touch_finger_event %s touch_id:%Ld@ finger_id:%Ld@ (%g,%g)@ \
-               rel:(%g,%g)@ pressure:%g"
+          rel:(%g,%g)@ pressure:%g"
     Sdl.Event.(if get e typ = finger_down then "down" else
                if get e typ = finger_motion then "motion" else
                if get e typ = finger_up then "up" else assert false)
@@ -135,7 +133,7 @@ let pp_joy_hat_event ppf e =
 
 let pp_keyboard_event ppf e =
   pp ppf "@[<1>keyboard_event@ window_id:%d@ state:%s@ repeat:%b@ \
-               scancode:%s@ keycode:%s@ keymod:%d@]"
+          scancode:%s@ keycode:%s@ keymod:%d@]"
     Sdl.Event.(get e keyboard_window_id)
     (button_state_str Sdl.Event.(get e keyboard_state))
     Sdl.Event.(get e keyboard_repeat > 0)
@@ -145,7 +143,7 @@ let pp_keyboard_event ppf e =
 
 let pp_mouse_button_event ppf e =
   pp ppf "@[<1>mouse_button_event window_id:%d@ which:%ld@ button:%d@ \
-               state:%s@ (%d,%d)@]"
+          state:%s@ (%d,%d)@]"
     Sdl.Event.(get e mouse_button_window_id)
     Sdl.Event.(get e mouse_button_which)
     Sdl.Event.(get e mouse_button_button)
@@ -155,7 +153,7 @@ let pp_mouse_button_event ppf e =
 
 let pp_mouse_motion_event ppf e =
   pp ppf "@[<1>mouse_motion_event window_id:%d@ which:%ld@ state:%ld@ \
-               (%d,%d)@ rel:(%d,%d)@]"
+          (%d,%d)@ rel:(%d,%d)@]"
     Sdl.Event.(get e mouse_motion_window_id)
     Sdl.Event.(get e mouse_motion_which)
     Sdl.Event.(get e mouse_motion_state)
@@ -170,7 +168,7 @@ let pp_mouse_wheel_direction ppf x =
   else if x = Sdl.Event.mouse_wheel_flipped then
     pp ppf "flipped"
   else
-  assert false
+    assert false
 
 
 let pp_mouse_wheel_event ppf e =
@@ -183,7 +181,7 @@ let pp_mouse_wheel_event ppf e =
 
 let pp_multi_gesture_event ppf e =
   pp ppf "@[<1>multi_gesture_event touch_id:%Ld@ dtheta:%f@ ddist:%f@ \
-               (%f,%f)@ num_fingers:%d@]"
+          (%f,%f)@ num_fingers:%d@]"
     Sdl.Event.(get e multi_gesture_touch_id)
     Sdl.Event.(get e multi_gesture_dtheta)
     Sdl.Event.(get e multi_gesture_ddist)
@@ -297,8 +295,6 @@ let pp_joystick_type ppf ty =
                   dance_pad,"dance_pad";guitar,"guitar";drum_kit, "drum_kit";
                   arcade_pad,"arcade_pad"; throttle, "throttle" ]
               )
-
-end
 
 (*---------------------------------------------------------------------------
    Copyright (c) 2013 The tsdl programmers

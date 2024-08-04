@@ -1,9 +1,6 @@
-
-(*open Olarn.Fmts*)
-
-module Util = struct
-
 let log fmt = Format.printf (fmt ^^ "@.")
 let log_err fmt = Format.eprintf (fmt ^^ "@.")
 
-end
+let check_err res = match res with
+  | Error (`Msg e) -> log_err " * Error: %s" e; exit 1
+  | Ok r -> r
