@@ -7,6 +7,8 @@
 
 open Tsdl
 
+module Fmts = struct
+
 let button_state_str = function
 | s when s = Sdl.pressed -> "pressed"
 | s when s = Sdl.released -> "released"
@@ -296,6 +298,7 @@ let pp_joystick_type ppf ty =
                   arcade_pad,"arcade_pad"; throttle, "throttle" ]
               )
 
+end
 
 (*---------------------------------------------------------------------------
    Copyright (c) 2013 The tsdl programmers
