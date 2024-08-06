@@ -19,7 +19,7 @@
   (name olarn)
   (synopsis "A short synopsis")
   (description "A longer description")
-  (depends ocaml dune tsdl)
+  (depends ocaml dune tsdl tsdl_image)
   (tags
     (topics "to describe" your project)))
 

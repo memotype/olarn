@@ -1,6 +1,6 @@
 (library
   (name olarn)
-  (libraries tsdl)
+  (libraries tsdl tsdl_image)
   (modules fmts util window)
   (flags (:standard -warn-error "-unused-value-declaration"
                     -warn-error "-unused-var-strict")))

@@ -13,9 +13,27 @@
  * limitations under the License.
  *)
 
-let log fmt = Format.printf (fmt ^^ "@.")
-let log_err fmt = Format.eprintf (fmt ^^ "@.")
+open Util
 
-let check_err res = match res with
-  | Error (`Msg e) -> log_err " * Error: %s" e; exit 1
-  | Ok r -> r
+type t = {
+  surface: Sdl.surface;
+  tilesize: {x: int, y: int};
+  tilesetsize: {x: int, y: int};
+}
+
+let load dirname =
+  let tileset_conffile = Filesystem.concat dirname "tileset.toml" in
+  let tileset_conf = Toml.Parser.from_file tileset_conffile in
+  let (tilesize_x, tilesize_y) =
+    begin match Toml.Table.find (Toml.key "tilesize") tileset_conf
+                |> Toml.to_int_array
+      with
+      | x :: y :: [] -> (x, y)
+      | _ -> log_err "Couldn't read tilesize from %s" tileset_conffile
+    end
+  in
+  {
+    surface: Sdl.
+
+
+
