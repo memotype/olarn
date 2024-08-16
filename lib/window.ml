@@ -18,20 +18,23 @@ open Tsdl_image
 open Util
 
 type t = {
-  window : Sdl.window;
-  renderer : Sdl.renderer;
+  window: Sdl.window;
+  renderer: Sdl.renderer;
+  image: Image.Init.t;
+  layers: View.t list ref;
 }
 
 let init (w, h) =
   let inits = Sdl.Init.(video + events) in
   Sdl.init inits |> check_err;
   let img_inits = Image.Init.(jpg + png + tif + webp) in
-  Image.init img_inits |> check_err;
+  let image = Image.init img_inits in
   let flags = Sdl.Window.(shown + mouse_focus + resizable) in
   let window = check_err (Sdl.create_window ~w:w ~h:h "SDL events" flags) in
   let flags = Sdl.Renderer.presentvsync in
   let renderer = Sdl.create_renderer ~flags window |> check_err in
-  {window; renderer}
+  let layers = [] in
+  {window; renderer; image; layers}
 
 let get_window win =
   win.window
@@ -43,3 +46,11 @@ let quit win =
   Sdl.destroy_window win.window;
   Sdl.quit ();
   exit 0
+
+let add_layer win layer =
+  win.layers := List.append win.layers [layer];
+
+(* later
+let insert_layer win layer =
+  win.layers := 
+*)

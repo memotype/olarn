@@ -14,19 +14,14 @@
  *)
 
 
-type pos = {
-  x: int;
-  y: int;
+open Util
+
+type t = {
+  size: size;
+  grid: Tileset.tile array;
 }
 
-type size = {
-  w: int;
-  h: int;
+let make (x, y) tileset = {
+  size = {x; y};
+  grid = Array.make (x * y) tileset.(0);
 }
-
-let log fmt = Format.printf (fmt ^^ "@.")
-let log_err fmt = Format.eprintf (fmt ^^ "@.")
-
-let check_err res = match res with
-  | Error (`Msg e) -> log_err " * Error: %s" e; exit 1
-  | Ok r -> r

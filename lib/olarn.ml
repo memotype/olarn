@@ -13,11 +13,12 @@
  * limitations under the License.
  *)
 
+
 open Tsdl
-open Olarn
 open Util
 
 let event_loop rend =
+  let layers = View.t array in (* size??? *)
   Sdl.set_render_draw_color rend 0 0 0 255 |> check_err;
   Sdl.render_clear rend |> check_err;
   Sdl.render_present rend;
@@ -39,4 +40,3 @@ let main () =
   event_loop rend;
   Window.quit win
 
-let () = main ()

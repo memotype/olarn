@@ -1,6 +1,18 @@
 (library
   (name olarn)
-  (libraries tsdl tsdl_image)
-  (modules fmts util window)
-  (flags (:standard -warn-error "-unused-value-declaration"
-                    -warn-error "-unused-var-strict")))
+  (libraries
+    tsdl
+    tsdl-image
+    toml)
+  (modules 
+    fmts
+    util
+    window
+    olarn
+    view
+    grid
+    tileset)
+  (flags
+    (:standard
+      -warn-error "-unused-value-declaration"
+      -warn-error "-unused-var-strict")))

@@ -14,26 +14,46 @@
  *)
 
 open Util
+open Tsdl
 
 type t = {
   surface: Sdl.surface;
-  tilesize: {x: int, y: int};
-  tilesetsize: {x: int, y: int};
+  alpha: int;
+  tilesize: size;
+  tilesetsize: size;
+}
+
+type tile = {
+  tileset: t;
+  pos: pos;
 }
 
 let load dirname =
-  let tileset_conffile = Filesystem.concat dirname "tileset.toml" in
-  let tileset_conf = Toml.Parser.from_file tileset_conffile in
-  let (tilesize_x, tilesize_y) =
+  let tileset_conffile = Filename.concat dirname "tileset.toml" in
+  let tileset_conf = Toml.Parser.from_filename tileset_conffile in
+  let tileset_imgfile = Toml.Table.find (Tom.key "tileset") tileset_conf
+                        |> Toml.Types.of_string in
+  let tileset_alpha = Toml.Table.find (Tom.key "alpha") tileset_conf
+                      |> Toml.to_int in
+  let tilesize =
     begin match Toml.Table.find (Toml.key "tilesize") tileset_conf
                 |> Toml.to_int_array
       with
-      | x :: y :: [] -> (x, y)
+      | w :: h :: [] -> {x; y}
       | _ -> log_err "Couldn't read tilesize from %s" tileset_conffile
     end
   in
+  let tilesetsize =
+    begin match Tom.Table.find (Toml.key "tilesetsize") tileset_conf
+                |> Toml.to_int_array
+      with
+      | w :: h :: [] -> {x; y}
+      | _ -> log_err "Could read tilesetsize from %s" tileset_conffile
+    end
+  in
   {
-    surface: Sdl.
-
-
-
+    surface: Image.load tileset_imgfile;
+    alpha: tileset_alpha;
+    tilesize: tilesize;
+    tilesetsize: tilesetsize;
+  }

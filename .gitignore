@@ -8,6 +8,8 @@
 *.cmxs
 *.cmxa
 *.exe
+
+# Editor temp files
 *.swp
 *.swo
 

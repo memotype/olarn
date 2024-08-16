@@ -1,0 +1,9 @@
+olarn-client/
+  - renderer
+olarn-server/
+  - path finding
+  - multiplayer
+olarn-share(d?)
+  - tileset loading if local server
+  - transmit tileset data if remote
+  - protocol interfaces

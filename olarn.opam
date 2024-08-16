@@ -13,7 +13,7 @@ depends: [
   "ocaml"
   "dune" {>= "3.16"}
   "tsdl"
-  "tsdl_image"
+  "tsdl-image"
   "odoc" {with-doc}
 ]
 build: [

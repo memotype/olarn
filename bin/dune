@@ -1,6 +1,19 @@
 (executable
   (public_name olarn)
-  (name main)
-  (libraries olarn tsdl)
-  (flags (:standard -warn-error "-unused-value-declaration"
-                    -warn-error "-unused-var-strict")))
+  (name client)
+  (libraries
+    olarn
+    tsdl)
+  (flags
+    (:standard
+      -warn-error "-unused-value-declaration"
+      -warn-error "-unused-var-strict")))
+(executable
+  (public_name olarn_server)
+  (name server)
+  (libraries
+    olarn)
+  (flags
+    (:standard
+      -warn-error "-unused-value-declaration"
+      -warn-error "-unused-var-strict")))
