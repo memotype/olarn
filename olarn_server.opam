@@ -11,8 +11,6 @@ bug-reports: "https://github.com/memotype/olarn/issues"
 depends: [
   "ocaml"
   "dune" {>= "3.16"}
-  "tsdl"
-  "tsdl-image"
   "capnp"
   "odoc" {with-doc}
 ]

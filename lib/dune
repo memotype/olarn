@@ -1,14 +1,16 @@
+; Main Olarn lib
 (library
   (name olarn)
   (libraries
     tsdl
     tsdl-image
-    toml)
+    toml
+    capnp)
   (modules 
+    client
     fmts
     util
     window
-    olarn
     view
     grid
     tileset)
@@ -16,3 +18,29 @@
     (:standard
       -warn-error "-unused-value-declaration"
       -warn-error "-unused-var-strict")))
+
+(library
+  (name olarn_server)
+  (public_name olarn_server)
+  (libraries
+    toml
+    capnp)
+  (modules
+    olarn_server)
+  (flags
+    (:standard
+      -warn-error "-unused-value-declaration"
+      -warn-error "-unused-var-strict")))
+
+
+; Olarn protocol lib
+(rule
+  (targets olarnp.ml olarnp.mli)
+  (deps    olarnp.capnp)
+  (action  (run capnp compile -oocaml %{deps})))
+
+(library
+  (name olarnp)
+  (libraries capnp)
+  (public_name olarnp)
+  (modules olarnp))

@@ -13,6 +13,4 @@
  * limitations under the License.
  *)
 
-open Olarn_server
-
 let () = Olarn_server.main ()

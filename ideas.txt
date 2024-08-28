@@ -7,3 +7,13 @@ olarn-share(d?)
   - tileset loading if local server
   - transmit tileset data if remote
   - protocol interfaces
+    - Cap'n Proto
+
+Client-side scripting language:
+  - Server sends scripts
+    - nested menus
+    - selections
+    - things that don't require server updates
+    - scheme?
+  - Basically, the client is like a web browser, but for roguelike games
+

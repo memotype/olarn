@@ -33,7 +33,7 @@ let init (w, h) =
   let window = check_err (Sdl.create_window ~w:w ~h:h "SDL events" flags) in
   let flags = Sdl.Renderer.presentvsync in
   let renderer = Sdl.create_renderer ~flags window |> check_err in
-  let layers = [] in
+  let layers = ref [] in
   {window; renderer; image; layers}
 
 let get_window win =
@@ -48,7 +48,7 @@ let quit win =
   exit 0
 
 let add_layer win layer =
-  win.layers := List.append win.layers [layer];
+  win.layers := List.append !(win.layers) [layer];
 
 (* later
 let insert_layer win layer =

@@ -13,10 +13,20 @@
  * limitations under the License.
  *)
 
-open Grid
+open Util
 
 type t = {
   grid: Grid.t;
   pos: pos;
   size: size;
 }
+
+let make grid pos size =
+  {
+    grid;
+    pos;
+    size;
+  }
+
+let render rend layer =
+  log "render called"

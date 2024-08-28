@@ -17,26 +17,36 @@
 open Tsdl
 open Util
 
+
+let rec render_layers rend layers =
+  match layers with
+  | [] -> ()
+  | l :: rest ->
+    View.render rend l;
+    render_layers rend rest
+
+
 let event_loop rend =
-  let layers = View.t array in (* size??? *)
+  let layers : View.t list ref = ref [] in
   Sdl.set_render_draw_color rend 0 0 0 255 |> check_err;
   Sdl.render_clear rend |> check_err;
   Sdl.render_present rend;
   let e = Sdl.Event.create () in
-  let rec loop () = 
+  Sdl.start_text_input ();
+
+  (* Main event loop *)
+  let rec loop ls = 
     check_err (Sdl.wait_event (Some e));
     log "%a" Fmts.pp_event e;
     match Sdl.Event.(enum (get e typ)) with
     | `Quit -> ()
-    | `Drop_file -> Sdl.Event.drop_file_free e; loop ()
-    | _ -> loop ()
-  in
-  Sdl.start_text_input ();
-  loop ()
+    | `Drop_file -> Sdl.Event.drop_file_free e; loop ls
+    | _ -> render_layers rend !ls
+  in loop layers
+
 
 let main () =
   let win = Window.init (640, 480) in
   let rend = Window.get_renderer win in
   event_loop rend;
   Window.quit win
-

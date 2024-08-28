@@ -15,4 +15,4 @@
 
 open Olarn
 
-let () = Olarn.main ()
+let () = Client.main ()

@@ -18,10 +18,28 @@ open Util
 
 type t = {
   size: size;
+  tileset: Tileset.t;
   grid: Tileset.tile array;
 }
 
-let make (x, y) tileset = {
-  size = {x; y};
-  grid = Array.make (x * y) tileset.(0);
+let make (w, h) tileset = {
+  size = {w; h};
+  tileset = tileset;
+  grid = Array.make (w * h) tileset.tiles.(0);
 }
+
+let get g (x, y) =
+  g.grid.(g.size.w * y + x)
+
+let set g tile (x, y) =
+  g.grid.(g.size.w * y + x) <- tile
+
+let fill_area g tile (x1, y1) (x2, y2) =
+  for x = x1 to x2 do
+    for y = y1 to y2 do
+      g.grid.(g.size.w * y + x) <- tile
+    done
+  done
+
+let fill g tile =
+  fill_area g tile (0, g.size.w) (0, g.size.h)
