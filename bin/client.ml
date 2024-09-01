@@ -13,6 +13,4 @@
  * limitations under the License.
  *)
 
-open Olarn
-
-let () = Client.main ()
+let () = Olarn.Client.main ()

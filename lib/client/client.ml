@@ -11,42 +11,43 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *)
+*)
 
 
 open Tsdl
 open Util
 
 
-let rec render_layers rend layers =
-  match layers with
-  | [] -> ()
-  | l :: rest ->
-    View.render rend l;
-    render_layers rend rest
+let render_layers rend layers =
+  List.iter (View.render rend) layers
 
 
-let event_loop rend =
-  let layers : View.t list ref = ref [] in
-  Sdl.set_render_draw_color rend 0 0 0 255 |> check_err;
-  Sdl.render_clear rend |> check_err;
-  Sdl.render_present rend;
-  let e = Sdl.Event.create () in
-  Sdl.start_text_input ();
-
+let rec event_loop rend layers =
   (* Main event loop *)
-  let rec loop ls = 
-    check_err (Sdl.wait_event (Some e));
-    log "%a" Fmts.pp_event e;
-    match Sdl.Event.(enum (get e typ)) with
+  let event = Sdl.Event.create () in
+  let rec event_loop_inner () =
+    check_err (Sdl.wait_event (Some event));
+    log "%a" Fmts.pp_event event;
+    match Sdl.Event.(enum (get event typ)) with
     | `Quit -> ()
-    | `Drop_file -> Sdl.Event.drop_file_free e; loop ls
-    | _ -> render_layers rend !ls
-  in loop layers
+    | `Drop_file ->
+      Sdl.Event.drop_file_free event;
+      event_loop_inner ()
+    | _ ->
+      render_layers rend !layers;
+      event_loop rend layers
+  in event_loop_inner ()
 
 
 let main () =
-  let win = Window.init (640, 480) in
+  let win = Window.init (639, 480) in
   let rend = Window.get_renderer win in
-  event_loop rend;
+  Sdl.set_render_draw_color rend 0 0 0 255 |> check_err;
+  Sdl.render_clear rend |> check_err;
+  Sdl.render_present rend;
+  Sdl.start_text_input ();
+  let layers 
+    : View.t list ref 
+    = ref [] in
+  event_loop rend layers;
   Window.quit win

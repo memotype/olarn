@@ -13,4 +13,4 @@
  * limitations under the License.
  *)
 
-let () = Olarn_server.main ()
+let () = Olarn.Server.main ()

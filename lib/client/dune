@@ -1,0 +1,20 @@
+(library
+  (name client)
+  (public_name olarn_client)
+  (libraries
+    tsdl
+    tsdl-image
+    toml
+    capnp
+    olarn_common)
+  (modules
+    client
+    fmts
+    util
+    window
+    view)
+  (flags
+    (:standard
+      -warn-error "-unused-value-declaration"
+      -warn-error "-unused-var-strict")))
+

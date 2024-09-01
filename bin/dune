@@ -2,9 +2,9 @@
   (public_name olarn)
   (name client)
   (libraries
-    olarn
-    tsdl)
-  (package olarn)
+    tsdl
+    olarn_client)
+  (package olarn_client)
   (flags
     (:standard
       -warn-error "-unused-value-declaration"
@@ -13,8 +13,8 @@
   (public_name olarn_server)
   (name server)
   (libraries
-    olarn_server)
-  (package olarn)
+    olarn)
+  (package olarn_server)
   (flags
     (:standard
       -warn-error "-unused-value-declaration"

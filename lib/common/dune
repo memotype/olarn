@@ -1,0 +1,12 @@
+(library
+  (name common)
+  (public_name olarn_common)
+  (libraries
+    capnp)
+  (modules
+    common)
+  (flags
+    (:standard
+      -warn-error "-unused-value-declaration"
+      -warn-error "-unused-var-strict")))
+

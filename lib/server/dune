@@ -1,0 +1,12 @@
+(library
+  (name server)
+  (public_name olarn_server)
+  (libraries
+    toml
+    capnp)
+  (modules
+    Server)
+  (flags
+    (:standard
+      -warn-error "-unused-value-declaration"
+      -warn-error "-unused-var-strict")))

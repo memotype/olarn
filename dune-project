@@ -17,6 +17,15 @@
 
 (package
   (name olarn)
+  (allow_empty)
+  (synopsis "A roguelike client/server engine")
+  (description "A longer description")
+  (depends ocaml dune tsdl tsdl-image capnp)
+  (tags
+    (topics "to describe" your project)))
+
+(package
+  (name olarn_client)
   (synopsis "A roguelike client/server engine")
   (description "A longer description")
   (depends ocaml dune tsdl tsdl-image capnp)
@@ -32,9 +41,18 @@
     (topics "to describe" your project)))
 
 (package
-  (name olarnp)
+  (name olarn_proto)
   (synopsis "A roguelike client/server engine protocol")
   (description "A longer description")
   (depends ocaml dune capnp)
   (tags
     (topics "to describe" your project)))
+
+(package
+  (name olarn_common)
+  (synopsis "A roguelike client/server engine protocol")
+  (description "A longer description")
+  (depends ocaml dune capnp)
+  (tags
+    (topics "to describe" your project)))
+

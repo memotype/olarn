@@ -14,6 +14,7 @@
  *)
 
 open Util
+open Olarn.Common
 
 type t = {
   grid: Grid.t;

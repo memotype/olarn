@@ -1,0 +1,9 @@
+(library
+  (name proto)
+  (public_name olarn_proto)
+  (libraries capnp)
+  (modules proto))
+
+(rule
+  (targets proto.ml proto.mli)
+  (action  (run capnp compile -o %{bin:capnpc-ocaml} %{dep:proto.capnp})))
